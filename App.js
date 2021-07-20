@@ -1,11 +1,14 @@
 //IMPORT LIBRARIES
 const express = require("express");
 const mongoose = require("mongoose")
+const cors = require("cors")
 require("dotenv").config()
 
 const app = express();
-app.use(express.json())
 
+//MIDDLEWARES
+app.use(express.json())
+app.use(cors())
 //IMPORT ROUTES
 const user_CRUD = require('./routes/UserCRUD')
 
