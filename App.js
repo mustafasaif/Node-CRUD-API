@@ -15,7 +15,7 @@ const user_CRUD = require('./routes/UserCRUD')
 app.use('/create_user', user_CRUD)
 
 app.get('/', (req, res) => {
-    res.send("HOME PAGE TESTING")
+    res.send("HOME PAGE")
 })
 
 //CONNECTION TO MONGODB
