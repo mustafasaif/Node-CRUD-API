@@ -1,6 +1,7 @@
 //IMPORT LIBRARIES
 const express = require('express')
 const User = require('../model/newUser')
+const Joi = require('joi')
 const router = express.Router()
 
 //FETCHING ALL THE USERS
@@ -16,7 +17,18 @@ router.get('/user_info', async (req, res) => {
 
 //CREATING NEW USER
 router.post('/', async (req, res) => {
-    const newUser = await User({
+    const schema = Joi.object().keys({
+        name: Joi.string().required().min(3),
+        age: Joi.number().required().min(1).max(3)
+    });
+    Joi.valid(req.body, schema, (err, result) => {
+        if (err) {
+            res.send("an error has occured")
+            console.log(err)
+        }
+
+    })
+    const newUser = User({
         Name: req.body.Name,
         Age: req.body.Age
     });
@@ -51,8 +63,18 @@ router.delete('/:userId', async (req, res) => {
 
 //UPDATING SPECIFIC USER INFORMATION
 router.patch('/:userId', async (req, res) => {
+    // const schema = Joi.object().keys({
+    //     Name: Joi.string().required().min(3),
+    //     Age: Joi.number().required()
+    // });
+
+    // Joi.valid(req.body, schema, (err, result) => {
+    //     if (err) {
+    //         console.log(err)
+    //     }
+    // })
     try {
-        const updatedUserInfo = await User.updateOne({ _id: req.params.userId }, { $set: { Name: req.body.Name } })
+        const updatedUserInfo = await User.updateOne({ _id: req.params.userId }, { $set: { Name: req.body.Name }, $set: { Age: req.body.Age } })
         res.json(updatedUserInfo)
 
     } catch (err) {
