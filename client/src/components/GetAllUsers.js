@@ -17,15 +17,60 @@ function GetAllUsers() {
 
         } catch (err) { console.error(err) }
     }
+    //     const renderTable = () =>{
+    //         {user.map((item, _id) =>{
+    //             const {id,name,age} = item
+    //             return(
+    //                 <tr key= {id}>
+    //                     <td>{id}</td>  
+    //                     <td>{name}</td>
+    //                     <td>{age}</td>
+    //                 </tr>
+    //             )
+    //         }
+    //     }
+    // }
+
 
 
     return (
         <div>
             <p>HELLO YOU IN GET ALL USERS PAGE</p>
             {/* <button className="submitbutton" onClick={handleretrieveUser}> getusers </button> */}
-            <ul >
-                {user.map((item, _id) => <li key={_id}>{item._id} {item.Name} {item.Age} </li >)}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            Age
+                        </td>
+                        <td>
+                            ID
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {user.map((item, _id) => {
+                        return (
+                            // <>
+                                <tr>
+                                    <td>
+                                        {item.Name}
+                                    </td>
+                                    <td>
+                                        {item.Age}
+                                    </td>
+                                    <td>
+                                        {item._id}
+                                    </td>
+                                </tr>
+                            // </>
+                        )
+                    })}
+                </tbody>
+            </table>
         </div>
     )
 }
