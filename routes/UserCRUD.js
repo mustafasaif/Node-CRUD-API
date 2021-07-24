@@ -19,7 +19,8 @@ router.get('/user_info', async (req, res) => {
 router.post('/', async (req, res) => {
     const schema = Joi.object().keys({
         name: Joi.string().required().min(3),
-        age: Joi.number().required().min(1).max(3)
+        age: Joi.number().required().min(1).max(3),
+        email: Joi.string().email()
     });
     Joi.valid(req.body, schema, (err, result) => {
         if (err) {
@@ -30,7 +31,8 @@ router.post('/', async (req, res) => {
     })
     const newUser = User({
         Name: req.body.Name,
-        Age: req.body.Age
+        Age: req.body.Age,
+        Email: req.body.Email
     });
     try {
         const savedNewUser = await newUser.save();
@@ -42,6 +44,12 @@ router.post('/', async (req, res) => {
 })
 
 //GETTING SPECIFIC USER
+// User.exists({name:'Amit'}, function (err, doc) {
+//     if (err){
+//         console.log(err)
+//     }else{
+//         console.log("Result :", doc) // true
+//     }
 router.get('/:userId', async (req, res) => {
     try {
         const specificUser = await User.findById(req.params.userId)
@@ -66,7 +74,8 @@ router.patch('/:userId', async (req, res) => {
     const schema = Joi.object().keys({
 
         Name: Joi.string().required().min(3),
-        Age: Joi.number().required()
+        Age: Joi.number().required(),
+        Email: Joi.string().email().required()
     });
 
     Joi.valid(req.body, schema, (err, result) => {
@@ -75,7 +84,7 @@ router.patch('/:userId', async (req, res) => {
         }
     })
     try {
-        const updatedUserInfo = await User.updateOne({ _id: req.params.userId }, { $set: { Name: req.body.Name,  Age: req.body.Age } })
+        const updatedUserInfo = await User.updateOne({ _id: req.params.userId }, { $set: { Name: req.body.Name, Age: req.body.Age, Email: req.body.Email } }, { omitUndefined: true })
         res.json(updatedUserInfo)
 
     } catch (err) {

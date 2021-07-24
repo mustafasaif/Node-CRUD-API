@@ -1,6 +1,7 @@
 //IMPORT LIBRARIES
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+const uniqueValidator = require('mongoose-unique-validator');
 
 //TEMPLATE FOR STORING NEW USERS IN MONGODB
 const user = new Schema({
@@ -9,7 +10,12 @@ const user = new Schema({
     },
     Age: {
         type: Number, required: true, min: 2
+    },
+    Email: {
+        type: String, unique: true, required: true, trim: true, lowercase: true, match: [/\S+@\S+\.\S+/, 'is invalid']
     }
-})
+}, { timestamps: true })
 
-module.exports = mongoose.model("User", user);
+user.plugin(uniqueValidator)
+
+module.exports = mongoose.model("USERS", user);
