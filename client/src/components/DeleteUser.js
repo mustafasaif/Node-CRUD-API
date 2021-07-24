@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-
+import './Singleuser.css'
 function DeleteUser() {
     const [id, setid] = useState("")
 
@@ -20,10 +20,10 @@ function DeleteUser() {
     }
 
     return (
-        <div>
-            <label>ENTER USER ID TO BE DELETED</label>
-            <input type="text" value={id} name="id" onChange={handlechange}></input>
-            <button type="submit" onClick={() => handledelete(id)}> Submit</button>
+        <div className= "formstylesingle">
+            <label className="labelstyle1">ENTER USER ID TO BE DELETED</label>
+            <input className = "inputstyle1" type="text" value={id} name="id" onChange={handlechange}></input>
+            <button className="buttonstyle  " type="submit" onClick={() => handledelete(id)}> Submit</button>
 
         </div>
     )

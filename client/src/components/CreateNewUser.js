@@ -6,7 +6,8 @@ import './form.css'
 function Newuser() {
     const [state, setState] = useState({
         fname: '',
-        age: ''
+        age: '',
+        email: ''
     })
     const [postdata, setPostdata] = useState(undefined)
 
@@ -14,11 +15,19 @@ function Newuser() {
         try {
             const post = await axios.post("http://localhost:3000/create_user", {
                 Name: state.fname,
-                Age: state.age
+                Age: state.age,
+                Email: state.email
             })
-            console.log(post.data)
-            alert(" New User Created Succesfully " + post.data.Name + " " + post.data.Age)
-            setPostdata(post.data)
+            console.log(post)
+            if (post.data.Name) {
+                alert(" New User Created Succesfully " + post.data.Name + " " + post.data.Age)
+                setPostdata(post.data)
+            }
+            else {
+                alert(post.data.message.errors.Email.message)
+                //console.log(post.data.message.errors.Email.message)
+            }
+
         } catch (err) {
             console.error(err)
         }
@@ -38,6 +47,8 @@ function Newuser() {
                 <input className="inputstyle" type="text" name="fname" value={state.fname} onChange={handleChange} />
                 <label className="labelstyle">Age</label>
                 <input className="inputstyle" type="text" name="age" value={state.age} onChange={handleChange} />
+                <label className="labelstyle">Email</label>
+                <input className="inputstyle" type="text" name="email" value={state.email} onChange={handleChange} />
                 <button className="fill" onClick={handlesubmit}>Submit</button>
             </div>
             {!isUndefined(postdata) &&

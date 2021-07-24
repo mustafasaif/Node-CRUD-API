@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react'
 import axios from 'axios'
-
+import './table.css'
 function GetAllUsers() {
     const [user, setUser] = useState([])
 
@@ -17,37 +17,26 @@ function GetAllUsers() {
 
         } catch (err) { console.error(err) }
     }
-    //     const renderTable = () =>{
-    //         {user.map((item, _id) =>{
-    //             const {id,name,age} = item
-    //             return(
-    //                 <tr key= {id}>
-    //                     <td>{id}</td>  
-    //                     <td>{name}</td>
-    //                     <td>{age}</td>
-    //                 </tr>
-    //             )
-    //         }
-    //     }
-    // }
-
-
-
     return (
         <div>
-            <p>HELLO YOU IN GET ALL USERS PAGE</p>
-            {/* <button className="submitbutton" onClick={handleretrieveUser}> getusers </button> */}
+            <div className="headeralign">
+                <h2 className="headingget">HELLO YOU IN GET ALL USERS PAGE</h2>
+            </div>
             <table>
                 <thead>
                     <tr>
+                        <td>
+                            ID
+                        </td>
                         <td>
                             Name
                         </td>
                         <td>
                             Age
                         </td>
+
                         <td>
-                            ID
+                            Email
                         </td>
                     </tr>
                 </thead>
@@ -55,17 +44,20 @@ function GetAllUsers() {
                     {user.map((item, _id) => {
                         return (
                             // <>
-                                <tr>
-                                    <td>
-                                        {item.Name}
-                                    </td>
-                                    <td>
-                                        {item.Age}
-                                    </td>
-                                    <td>
-                                        {item._id}
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    {item._id}
+                                </td>
+                                <td>
+                                    {item.Name}
+                                </td>
+                                <td>
+                                    {item.Age}
+                                </td>
+                                <td>
+                                    {item.Email}
+                                </td>
+                            </tr>
                             // </>
                         )
                     })}

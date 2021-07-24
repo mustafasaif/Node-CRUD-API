@@ -4,9 +4,10 @@ import './form.css'
 
 function UpdateUser() {
     const [userinfo, setUserinfo] = useState({
-        fname: "",
-        Age: "",
-        id:""
+        fname: undefined,
+        Age: undefined,
+        id:undefined,
+        email:undefined
     })
 
     const handlechange = (event) => {
@@ -21,9 +22,10 @@ function UpdateUser() {
         try {
             const updateduser = await axios.patch("http://localhost:3000/create_user/"+id, {
                 Name: userinfo.fname,
-                Age: userinfo.Age
+                Age: userinfo.Age,
+                Email:userinfo.email
             })
-            alert("User details update")
+            alert("USER DETAILS UPDATED SUCCESSFULLY")
             console.log(updateduser)
         } catch (err) {
             console.log(err)
@@ -38,6 +40,8 @@ function UpdateUser() {
             <input className = "inputstyle" type = "text" name="fname" value = {userinfo.fname} onChange={handlechange}></input>
             <label className="labelstyle">Age</label>
             <input className = "inputstyle" type = "text" name="Age" value = {userinfo.Age} onChange={handlechange}></input>
+            <label className="labelstyle">Email</label>
+            <input className = "inputstyle" type = "text" name="email" value = {userinfo.email} onChange={handlechange}></input>
             <button className = "fill" type="submit" onClick={()=>handleupdate(userinfo.id)}>Submit</button>
         </div>
     )

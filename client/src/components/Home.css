@@ -3,6 +3,12 @@
     background-color: tomato;
     border: black;
     border-radius: 12px;
-    padding: 50px 50px;
+    padding: 60px;
+    width: fit-content;
+    margin-left: 35px;
     
+    
+}
+.alignment{
+    text-align: center;
 }

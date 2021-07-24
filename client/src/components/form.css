@@ -6,7 +6,8 @@
   background: #c25a5a;
   width: 220px;
   display: block;
-  margin-top: 200px;
+  margin-top: 180px;
+  text-align: center;
 }
 
 .labelstyle{
@@ -19,7 +20,7 @@
 .inputstyle{
   margin: 5px 0 10px 0;
   padding: 5px;
-  border: 1px sold #bfbfbf;
+  border: 1px solid #000000;
   border-radius: 3px;
   box-sizing: border-box;
   width: 100%;
