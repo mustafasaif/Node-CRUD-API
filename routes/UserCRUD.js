@@ -9,7 +9,6 @@ router.get('/user_info', async (req, res) => {
     try {
         const users = await User.find();
         res.json(users)
-
     } catch (err) {
         res.json({ message: err })
     }
@@ -18,75 +17,70 @@ router.get('/user_info', async (req, res) => {
 //CREATING NEW USER
 router.post('/', async (req, res) => {
     const schema = Joi.object().keys({
-        name: Joi.string().required().min(3),
-        age: Joi.number().required().min(1).max(3),
-        email: Joi.string().email()
+        Name: Joi.string().required().min(3),
+        Age: Joi.number().required().min(10).max(99),
+        Email: Joi.string().email().required()
     });
-    Joi.valid(req.body, schema, (err, result) => {
-        if (err) {
-            res.send("an error has occured")
-            console.log(err)
+    const result = schema.validate(req.body)
+    console.log(result.error)
+    if (result.error) {
+        console.log(result.error.details[0].message)
+    }
+    else {
+        try {
+            const newUser = User({
+                Name: req.body.Name,
+                Age: req.body.Age,
+                Email: req.body.Email
+            });
+            const savedNewUser = await newUser.save();
+            res.json(savedNewUser);
+        } catch (err) {
+            res.json({ message: err })
         }
-
-    })
-    const newUser = User({
-        Name: req.body.Name,
-        Age: req.body.Age,
-        Email: req.body.Email
-    });
-    try {
-        const savedNewUser = await newUser.save();
-        res.json(savedNewUser);
-
-    } catch (err) {
-        res.json({ message: err })
     }
 })
 
 //GETTING SPECIFIC USER
-// User.exists({name:'Amit'}, function (err, doc) {
-//     if (err){
-//         console.log(err)
-//     }else{
-//         console.log("Result :", doc) // true
-//     }
+
 router.get('/:userId', async (req, res) => {
     try {
-        const specificUser = await User.findById(req.params.userId)
-        res.json(specificUser)
+        const DoesUserExist = await User.exists({ _id: req.params.userId })
+        if (DoesUserExist === true) {
+            const specificUser = await User.findById(req.params.userId)
+            res.json(specificUser)
+        }
+        else {
+            res.json({ message: "USER ID DOES NOT EXSITS" })
+        }
     } catch (err) {
         res.json({ message: err })
     }
-
 })
 
 //DELETING SPECIFIC USER
 router.delete('/:userId', async (req, res) => {
     try {
-        const deletedUser = await User.remove({ _id: req.params.userId })
-        res.json(deletedUser)
-
+        const DoesUserExist = await User.exists({ _id: req.params.userId })
+        if (DoesUserExist === true) {
+            const deletedUser = await User.remove({ _id: req.params.userId })
+            res.json(deletedUser)
+        }
+        else {
+            res.json({ message: "USER ID DOES NOT EXSITS" })
+            console.log("SER ID DOES NOT EXSITS")
+        }
     } catch (err) { res.json({ message: err }) }
 })
 
 //UPDATING SPECIFIC USER INFORMATION
 router.patch('/:userId', async (req, res) => {
-    const schema = Joi.object().keys({
-
-        Name: Joi.string().required().min(3),
-        Age: Joi.number().required(),
-        Email: Joi.string().email().required()
-    });
-
-    Joi.valid(req.body, schema, (err, result) => {
-        if (err) {
-            console.log(err)
-        }
-    })
     try {
-        const updatedUserInfo = await User.updateOne({ _id: req.params.userId }, { $set: { Name: req.body.Name, Age: req.body.Age, Email: req.body.Email } }, { omitUndefined: true })
-        res.json(updatedUserInfo)
-
+        const DoesUserExist = await User.exists({ _id: req.params.userId })
+        if (DoesUserExist === true) {
+            const updatedUserInfo = await User.updateOne({ _id: req.params.userId }, { $set: { Name: req.body.Name, Age: req.body.Age, Email: req.body.Email } }, { omitUndefined: true })
+            res.json(updatedUserInfo)
+        }
     } catch (err) {
         res.json({ message: err })
     }
