@@ -20,7 +20,7 @@ function UpdateUser() {
     const handleupdate = async (id, event) => {
         event.preventDefault();
         try {
-            const updateduser = await axios.patch("http://localhost:3000/create_user/" + id, {
+            const updateduser = await axios.patch("http://localhost:3002/create_user/" + id, {
                 Name: userinfo.fname,
                 Age: userinfo.Age,
                 Email: userinfo.email

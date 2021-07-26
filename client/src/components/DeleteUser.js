@@ -12,7 +12,7 @@ function DeleteUser() {
     const handledelete = async (id, event) => {
         event.preventDefault()
         try {
-            const deleteduser = await axios.delete("http://localhost:3000/create_user/" + id)
+            const deleteduser = await axios.delete("http://localhost:3002/create_user/" + id)
             console.log(deleteduser)
             if (deleteduser.data.n === 1) 
             { alert("USER DELETED SUCCESSFULLY") }

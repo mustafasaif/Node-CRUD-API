@@ -14,7 +14,7 @@ function Newuser() {
     const handlesubmit = async (e) => {
         e.preventDefault();
         try {
-            const post = await axios.post("http://localhost:3000/create_user", {
+            const post = await axios.post("http://localhost:3002/create_user", {
                 Name: state.fname,
                 Age: state.age,
                 Email: state.email

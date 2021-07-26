@@ -16,7 +16,7 @@ function GetSingleUser() {
         event.preventDefault();
 
         try {
-            const userinfo = await axios.get("http://localhost:3000/create_user/" + user_id)
+            const userinfo = await axios.get("http://localhost:3002/create_user/" + user_id)
             if (userinfo.data.message) {
                 alert("INVALID USER ID PLEASE TRY AGAIN")
             }

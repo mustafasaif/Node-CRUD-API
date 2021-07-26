@@ -10,7 +10,7 @@ function GetAllUsers() {
 
     const handleretrieveUser = async () => {
         try {
-            const users = await axios.get("http://localhost:3000/create_user/user_info")
+            const users = await axios.get("http://localhost:3002/create_user/user_info")
             console.log(users.data)
             setUser(users.data)
 
