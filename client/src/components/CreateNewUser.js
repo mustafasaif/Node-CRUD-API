@@ -12,22 +12,21 @@ function Newuser() {
     const [postdata, setPostdata] = useState(undefined)
 
     const handlesubmit = async (e) => {
+        e.preventDefault();
         try {
             const post = await axios.post("http://localhost:3000/create_user", {
                 Name: state.fname,
                 Age: state.age,
                 Email: state.email
             })
-            console.log(post)
+            // console.log(post)
             if (post.data.Name) {
-                alert(" New User Created Succesfully " + post.data.Name + " " + post.data.Age)
+                alert(" NEW USER CREATED SUCCESSFULLY " + post.data.Name + "  " + post.data.Age + "  " + post.data.Email)
                 setPostdata(post.data)
             }
-            else {
+            else {  
                 alert(post.data.message.errors.Email.message)
-                //console.log(post.data.message.errors.Email.message)
             }
-
         } catch (err) {
             console.error(err)
         }
@@ -38,19 +37,18 @@ function Newuser() {
             ...state,
             [event.target.name]: value
         })
-        console.log(state)
     }
     return (
         <div>
-            <div className="formstyle">
+            <form onSubmit={handlesubmit} className="formstyle">
                 <label className="labelstyle">Name</label>
-                <input className="inputstyle" type="text" name="fname" value={state.fname} onChange={handleChange} />
+                <input className="inputstyle" type="text" name="fname" value={state.fname} onChange={handleChange} required minlength="2" />
                 <label className="labelstyle">Age</label>
-                <input className="inputstyle" type="text" name="age" value={state.age} onChange={handleChange} />
+                <input className="inputstyle" type="text" name="age" value={state.age} onChange={handleChange} required minlength="2" maxLength="2" />
                 <label className="labelstyle">Email</label>
-                <input className="inputstyle" type="text" name="email" value={state.email} onChange={handleChange} />
-                <button className="fill" onClick={handlesubmit}>Submit</button>
-            </div>
+                <input className="inputstyle" type="email" name="email" value={state.email} onChange={handleChange} required />
+                <button type="submit" className="fill" >Submit</button>
+            </form>
             {!isUndefined(postdata) &&
                 <ul>
                     <li> {postdata.Name}</li>
@@ -59,6 +57,5 @@ function Newuser() {
         </div>
     )
 }
-
 
 export default Newuser;

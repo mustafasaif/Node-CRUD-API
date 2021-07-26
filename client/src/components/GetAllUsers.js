@@ -6,7 +6,6 @@ function GetAllUsers() {
 
     useEffect(() => {
         handleretrieveUser()
-
     }, [])
 
     const handleretrieveUser = async () => {
@@ -40,11 +39,11 @@ function GetAllUsers() {
                         </td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     {user.map((item, _id) => {
                         return (
                             // <>
-                            <tr>
+                            <tr key = {item._id}>
                                 <td>
                                     {item._id}
                                 </td>
