@@ -14,7 +14,3 @@ Run the docker image as follows  **docker run --name [assign name to container] 
 ## ClientSide
 Enter the client directory through the terminal 
 execute **"npm start"**
-
-=================================================================================  
-**NOTE**  
-Make sure to run the server first then run the client as the default port in client is the same as the server port
