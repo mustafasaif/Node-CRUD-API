@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 import axios from 'axios';
-import { isUndefined } from 'lodash';
+// import { isUndefined } from 'lodash';
 import './form.css'
 
 function Newuser() {
@@ -10,6 +10,7 @@ function Newuser() {
         email: ''
     })
     const [postdata, setPostdata] = useState(undefined)
+    console.log(postdata)
 
     const handlesubmit = async (e) => {
         e.preventDefault();
@@ -49,11 +50,11 @@ function Newuser() {
                 <input className="inputstyle" type="email" name="email" value={state.email} onChange={handleChange} required />
                 <button type="submit" className="fill" >Submit</button>
             </form>
-            {!isUndefined(postdata) &&
+            {/* {!isUndefined(postdata) &&
                 <ul>
                     <li> {postdata.Name}</li>
                     <li>{postdata.Age}</li>
-                </ul>}
+                </ul>} */}
         </div>
     )
 }
