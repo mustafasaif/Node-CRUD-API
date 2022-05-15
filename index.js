@@ -9,14 +9,11 @@ const app = express();
 //MIDDLEWARES
 app.use(express.json());
 app.use(cors());
+
 //IMPORT ROUTES
-const user_CRUD = require("./routes/UserCRUD");
+const routes = require("./routes");
 
-app.use("/create_user", user_CRUD);
-
-app.get("/", (req, res) => {
-  res.send("HOME PAGE");
-});
+app.use("/v1/", routes());
 
 //CONNECTION TO MONGODB
 const options = {
@@ -28,7 +25,7 @@ const options = {
 mongoose
   .connect(process.env.DB_CONNECTION_STRING, options)
   .then(() => {
-    console.log("successful connection to mongodb");
+    console.log("successful connected to mongodb");
   })
   .catch((err) => {
     console.log(err);
