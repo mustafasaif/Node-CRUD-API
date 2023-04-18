@@ -1,10 +1,10 @@
 const express = require("express");
-const { getAllusers } = require("./fetch/user.controller");
-const {newUser} = require('./create/usercreate.controller')
+const { getAllUsers } = require("./fetch/getuser.controller");
+const { newUser } = require("./create/newuser.controller");
 const userRouter = express.Router();
 
 module.exports = () => {
-  userRouter.get("/all", getAllusers);
+  userRouter.get("/all", getAllUsers);
   userRouter.post("/create", newUser);
   return userRouter;
 };

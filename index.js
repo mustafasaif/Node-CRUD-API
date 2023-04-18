@@ -2,6 +2,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const { errorConverter, errorHandler } = require("./middlewares/error");
+const { logger } = require("./utils/logger");
 require("dotenv").config();
 
 const app = express();
@@ -15,7 +17,8 @@ const routes = require("./routes");
 
 app.use("/v1/", routes());
 
-
+app.use(errorConverter);
+app.use(errorHandler);
 //CONNECTION TO MONGODB
 const options = {
   useNewUrlParser: true,
@@ -26,12 +29,12 @@ const options = {
 mongoose
   .connect(process.env.DB_CONNECTION_STRING, options)
   .then(() => {
-    console.log("successful connected to mongodb");
+   logger.info("successful connected to mongodb");
   })
   .catch((err) => {
-    console.log(err);
+    logger.error(err);
   });
 
 app.listen(process.env.PORT, () => {
-  console.log(`listening on port ${process.env.PORT}`);
+  logger.info(`listening on port ${process.env.PORT}`);
 });
