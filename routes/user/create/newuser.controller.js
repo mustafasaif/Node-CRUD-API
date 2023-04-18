@@ -16,10 +16,10 @@ exports.newUser = async (req, res, next) => {
     const { error, data } = await createUser(req.body);
 
     if (data) {
-      res.status(200).send({ Data: data });
+      res.status(200).send(data);
     }
     if (error) {
-      res.status(500).send({ Error: error });
+      res.status(500).send(error);
     }
   } catch (error) {
     logger.error(error);
