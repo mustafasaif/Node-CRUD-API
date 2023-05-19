@@ -1,12 +1,15 @@
-const user = require("../../../model/newUser");
-const logger = require("../../../utils/logger");
+import userSchema from "../../../model/newUser.js";
+import { logger } from "../../../utils/logger.js";
+// import { ApiError } from "../../../utils/ApiError.js";
 
-module.exports = getAllUsers = async (req) => {
+const getAllUsers = async (req) => {
   try {
-    const users = await user.find();
+    const users = await userSchema.find();
     return { data: users };
   } catch (err) {
     logger.error(err);
     return { error: err.message };
   }
 };
+
+export default getAllUsers;

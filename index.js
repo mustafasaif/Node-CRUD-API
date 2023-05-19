@@ -1,40 +1,43 @@
-//IMPORT LIBRARIES
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const { errorConverter, errorHandler } = require("./middlewares/error");
-const { logger } = require("./utils/logger");
-require("dotenv").config();
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import { errorConverter, errorHandler } from "./middlewares/error.js";
+import { logger } from "./utils/logger.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
-//MIDDLEWARES
+// MIDDLEWARES
 app.use(express.json());
 app.use(cors());
 
-//IMPORT ROUTES
-const routes = require("./routes");
+// IMPORT ROUTES
+import routes from "./routes/index.js";
 
-app.use("/v1/", routes());
+app.use("/v1", routes());
 
 app.use(errorConverter);
 app.use(errorHandler);
-//CONNECTION TO MONGODB
+
+// CONNECTION TO MONGODB
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
+  useFindAndModify: false,
 };
 
 mongoose
   .connect(process.env.DB_CONNECTION_STRING, options)
   .then(() => {
-   logger.info("successful connected to mongodb");
+    logger.info("Successfully connected to MongoDB");
   })
   .catch((err) => {
     logger.error(err);
   });
 
 app.listen(process.env.PORT, () => {
-  logger.info(`listening on port ${process.env.PORT}`);
+  logger.info(`Listening on port ${process.env.PORT}`);
 });

@@ -1,14 +1,16 @@
-const user = require("../../../model/newUser");
-const logger = require("../../../utils/logger");
+import userSchema from "../../../model/newUser.js";
+import { logger } from "../../../utils/logger.js";
 
-module.exports = createUser = async (req) => {
+const createUser = async (req) => {
   const { Name, Age, Email } = req;
+
   try {
-    const newUser = user({
+    const newUser = new userSchema({
       Name,
       Age,
       Email,
     });
+
     const savedNewUser = await newUser.save();
     return { data: savedNewUser };
   } catch (err) {
@@ -16,3 +18,5 @@ module.exports = createUser = async (req) => {
     return { error: err.message };
   }
 };
+
+export default createUser;
