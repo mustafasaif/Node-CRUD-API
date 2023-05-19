@@ -1,7 +1,7 @@
-const logger = require("../../../utils/logger");
-const getAllUsers = require("./getuser.service");
+import { logger } from "../../../utils/logger.js";
+import getAllUsers from "./getuser.service.js";
 
-exports.getAllUsers = async (req, res, next) => {
+export const getAllUsersController = async (req, res, next) => {
   try {
     const { data, error } = await getAllUsers(req);
     if (data) {
