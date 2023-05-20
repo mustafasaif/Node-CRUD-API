@@ -4,7 +4,7 @@ import { logger } from "../utils/logger.js";
 
 const errorConverter = (err, req, res, next) => {
   let error = err;
-  console.log(error);
+  // console.log(error);
 
   if (!(error instanceof ApiError)) {
     const statusCode = error.statusCode || httpStatus.INTERNAL_SERVER_ERROR;
@@ -22,7 +22,7 @@ const errorHandler = (err, req, res, next) => {
     message,
     stack: err.stack,
   };
-  logger.error(err);
+  // logger.error(err);
 
   res.status(statusCode).send(response);
 };

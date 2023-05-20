@@ -11,5 +11,6 @@ export const updateUserController = async (req, res, next) => {
     res.json(updatedUser);
   } catch (error) {
     logger.error(error);
+    next(error);
   }
 };

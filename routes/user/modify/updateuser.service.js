@@ -1,5 +1,6 @@
 import userSchema from "../../../model/newUser.js";
 import { logger } from "../../../utils/logger.js";
+import { createApiError } from "../../../utils/ApiError.js";
 
 const updateUser = async (id, updatedFields) => {
   try {
@@ -9,12 +10,13 @@ const updateUser = async (id, updatedFields) => {
       { new: true }
     );
     if (!updatedUser) {
-      return { error: "User not found" };
+      throw createApiError(404, "User not found");
     }
     logger.info("user updated successfully");
     return updatedUser;
   } catch (error) {
     logger.error(error);
+    throw error
   }
 };
 
