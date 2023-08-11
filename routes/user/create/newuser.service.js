@@ -1,4 +1,5 @@
 import userSchema from "../../../model/newUser.js";
+import { createApiError } from "../../../utils/ApiError.js";
 import { logger } from "../../../utils/logger.js";
 
 const createUser = async (req) => {
@@ -12,10 +13,16 @@ const createUser = async (req) => {
     });
 
     const savedNewUser = await newUser.save();
-    return { data: savedNewUser };
+    return savedNewUser;
   } catch (err) {
     logger.error(err);
-    return { error: err.message };
+    if (err.name === "ValidationError") {
+      throw createApiError(
+        409,
+        "This email is already in use. Please try a different one."
+      );
+    }
+    throw err;
   }
 };
 

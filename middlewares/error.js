@@ -21,7 +21,6 @@ const errorHandler = (err, req, res, next) => {
     message,
     stack: err.stack,
   };
-  // logger.error(err);
 
   res.status(statusCode).send(response);
 };
