@@ -18,15 +18,11 @@ export const createUserController = async (req, res, next) => {
       return;
     }
 
-    const { error, data } = await createUser(validatedData);
+    const data = await createUser(validatedData);
+    logger.info(data);
 
-    if (data) {
-      res.status(200).send(data);
-    }
-    if (error) {
-      res.status(500).send(error);
-    }
+    res.json(data);
   } catch (error) {
-    logger.error(error);
+    next(error);
   }
 };
