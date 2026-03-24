@@ -14,7 +14,10 @@ export const createUserController = async (req, res, next) => {
     );
 
     if (validationError) {
-      res.status(400).send(validationError.details[0].message);
+      res.status(400).json({
+        error: "Invalid user data",
+        details: validationError.details[0].message,
+      });
       return;
     }
 
